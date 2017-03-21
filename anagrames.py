@@ -13,11 +13,11 @@ from functools import reduce
 def remove_accents(my_unicode):
     return unicodedata.normalize('NFD', my_unicode).encode('ascii', 'ignore').decode('ascii').lower()
 
-def split_slash(*l):
+def clean_text(*l):
     return tuple(map(remove_accents, itertools.chain(*list(map(lambda s: s.split('/'), l)))))
 
 
-indices = split_slash(
+indices = clean_text(
     "*y****** *u ****é/f***** *i* *e* *e***",
     "********é ******r/e* ***r* ********u*",
     "*t******* **********e/********t d’*n *é****",
@@ -36,7 +36,7 @@ indices = split_slash(
     "*******t* *a** *e* ******s/d’*n *****é**** *é****"
 )
 
-anagrams = split_slash(
+anagrams = clean_text(
     'ANE + PUR + DYNASTIES / DEFI + FUTS + MENT + PEURS',
     'ENTROUVERTE + SIROP / BOUC + OCRE + ENTREPOTS',
     'CONTENTIEUSE + SALINITE / MUR + NUL + DEMENT + HUMIDE',
@@ -63,18 +63,35 @@ def build_regex(indice_part, letters):
         indice
         for indice in indice_part
     ]
-    print(''.join(patterns))
-    return re.compile(''.join(patterns), re.IGNORECASE)
+    return re.compile('^%s$' % ''.join(patterns), re.IGNORECASE)
 
 
 def parse_all_words(regex):
     # open the dictionnary and return all word matching regex
+    # yield from iter(['lol', 'tyrannie', 'du', 'passe'])
+    # return
 
     with io.open("./test.txt", "r", encoding="utf8") as f:
         for line in f.readlines():
             ascii_line = remove_accents(line)
             if regex.match(ascii_line):
-                yield ascii_line
+                yield ascii_line.strip()
+
+
+def permute_solutions(words, current_counter, expected_counter):
+    if not words:
+        if current_counter == expected_counter:
+            yield tuple()
+        return
+    for current_w in words[0]:
+
+        new_counter = current_counter + collections.Counter(current_w)
+        extra_not_in_anagram = new_counter - expected_counter
+        if extra_not_in_anagram:
+            continue
+        else:
+            for result in permute_solutions(words[1:], new_counter, expected_counter):
+                yield (current_w,) + result
 
 
 def solve(indice, anagram):
@@ -83,28 +100,17 @@ def solve(indice, anagram):
     for indice_part in indice.split(' '):
         # for each word in the indice
         regexp = build_regex(indice_part, letters)
-        words_list.append(list(parse_all_words(regexp)))
+        words_list.append(set(list(parse_all_words(regexp))))
     print('possibilities : %s' % [len(words) for words in words_list])
-    maxi = reduce(lambda a, b: a* b, [len(words) for words in words_list])
-    for i, words in enumerate(itertools.product(*words_list)):
-        print("%d/%d permutation tested\r" % (i, maxi), end='')
-        # words is a tuple of valide permutations
-        ctr_letters = collections.Counter()
-        for word in words:
-            ctr_letters.update(word)
-
-            if (ctr_letters - letters):
-                break
-        if ctr_letters == letters:
-            yield words
+    for solution in permute_solutions(words_list, collections.Counter(), letters):
+        yield solution
 
 
 def main():
-
     for indice, anagram in zip(indices, anagrams):
         print("%s => %s" % (indice, anagram))
-        print(list(solve(indice, anagram)))
-        break
+        print('\n'.join(' '.join(s) for s in solve(indice, anagram)))
+
 
 if __name__ == '__main__':
     main()
