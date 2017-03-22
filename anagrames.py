@@ -142,13 +142,11 @@ except ImportError:
             self.current = 0
 
         def print(self):
-            print('%d/%d\r' % (self.current, self.total), end='')
+            print('%d/%d\r' % (self.current, self.total), end='', file=sys.stderr)
 
         def up(self, nb=1):
             self.current += nb
             self.print()
-
-
 
 
 def solve(indice, anagram):
@@ -162,8 +160,13 @@ def solve(indice, anagram):
     print('possibilities : %s => %d' % ([len(words) for words in words_list], total))
     progresser = Progresser(total)
 
-    for solution in permute_solutions(words_list, collections.Counter(), letters, progresser.up):
-        yield solution
+    # sort words_list to better perfs
+    key_list = sorted(enumerate(words_list), key=lambda t: len(t[1]))
+    sorted_word = list(map(operator.itemgetter(1), key_list))
+    print('optimized word_list : %s' % [len(words) for words in sorted_word])
+    for solution in permute_solutions(sorted_word, collections.Counter(), letters, progresser.up):
+        # output solution in right order
+        yield tuple(solution[i[0]] for i in key_list)
 
 
 def main(numToDo=None):
