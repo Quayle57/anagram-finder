@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import itertools
-import pprint
+import operator
 import collections
 import re
 import io
@@ -78,20 +78,58 @@ def parse_all_words(regex):
                 yield ascii_line.strip()
 
 
-def permute_solutions(words, current_counter, expected_counter):
+def permute_solutions(words, current_counter, expected_counter, cb_up):
     if not words:
         if current_counter == expected_counter:
             yield tuple()
+        cb_up()
         return
+    nb_permut_sub = nb_computation(words[1:])
     for current_w in words[0]:
 
         new_counter = current_counter + collections.Counter(current_w)
         extra_not_in_anagram = new_counter - expected_counter
         if extra_not_in_anagram:
+            cb_up(nb_permut_sub)
             continue
         else:
-            for result in permute_solutions(words[1:], new_counter, expected_counter):
+            for result in permute_solutions(words[1:], new_counter, expected_counter, cb_up):
                 yield (current_w,) + result
+
+
+def nb_computation(words):
+    return reduce(operator.mul, (len(wl) for wl in words), 1)
+
+try:
+    import progressbar
+
+    class Progresser:
+        def __init__(self, total):
+            self.bar = progressbar.ProgressBar(total=total)
+            self.current = 0
+            self.bar.start(total)
+
+        def up(self, nb=1):
+            self.current += nb
+            self.bar.update(self.current)
+
+        def __del__(self):
+            self.bar.finish()
+
+except ImportError:
+    class Progresser:
+        def __init__(self, total):
+            self.total = total
+            self.current = 0
+
+        def print(self):
+            print('%d/%d\r' % (self.current, self.total), end='')
+
+        def up(self, nb=1):
+            self.current += nb
+            self.print()
+
+
 
 
 def solve(indice, anagram):
@@ -101,8 +139,11 @@ def solve(indice, anagram):
         # for each word in the indice
         regexp = build_regex(indice_part, letters)
         words_list.append(set(list(parse_all_words(regexp))))
-    print('possibilities : %s' % [len(words) for words in words_list])
-    for solution in permute_solutions(words_list, collections.Counter(), letters):
+    total = nb_computation(words_list)
+    print('possibilities : %s => %d' % ([len(words) for words in words_list], total))
+    progresser = Progresser(total)
+
+    for solution in permute_solutions(words_list, collections.Counter(), letters, progresser.up):
         yield solution
 
 
