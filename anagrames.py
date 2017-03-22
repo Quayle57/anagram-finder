@@ -161,7 +161,8 @@ def solve(indice, anagram):
     progresser = Progresser(total)
 
     # sort words_list to better perfs
-    key_list = sorted(enumerate(words_list), key=lambda t: len(t[1]))
+
+    key_list = sorted(enumerate(words_list), key=lambda t: len(indice.split(' ')[t[0]]), reverse=True)
     sorted_word = list(map(operator.itemgetter(1), key_list))
     print('optimized word_list : %s' % [len(words) for words in sorted_word])
     for solution in permute_solutions(sorted_word, collections.Counter(), letters, progresser.up):
