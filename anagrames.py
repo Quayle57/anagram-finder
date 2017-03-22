@@ -166,10 +166,10 @@ def solve(indice, anagram):
         yield solution
 
 
-def main(numToDo):
+def main(numToDo=None):
     for i, (indice, anagram) in enumerate(zip(indices, anagrams)):
         print("[%d]%s => %s" % (i, indice, anagram))
-        if i not in numToDo:
+        if numToDo is not None and i not in numToDo:
             continue
         print('\n'.join(' '.join(s) for s in solve(indice, anagram)))
 
@@ -178,6 +178,5 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         numToDo = [int(i) - 1 for i in sys.argv[1:]]
     else:
-        print('give numbers bitch')
-        exit()
+        numToDo = None
     main(numToDo)
