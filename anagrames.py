@@ -21,7 +21,7 @@ def clean_text(*l):
 
 
 indices = clean_text(
-    "*y****** *u ****é/f***** *i* *e* *e***",
+    "Tyrannie du passé/future fin des temps",
     "********é ******r/e* ***r* ********u*",
     "*t******* **********e/********t d *n *é****",
     "é******** **n* *e* *i***/i******** *n **s****",
@@ -37,14 +37,14 @@ indices = clean_text(
     "*n *f******** *o*/*é*é*** *a** *e ***f***",
     "*u*** *e **c** *e *c****/***è* *e *i****",
     "*******t* *a** *e* ******s/d *n *****é**** *é****",
-    "******é* **** ** ****s / *’** ****s*** é*******",
-    "***o** *** ** **n* / *é******* **** ***a**",
-    "***** ** *é********* / ***** *e ********",
-    "É**** **********, / ******* *******u*",
-    "******** *********** / ** ** ***** *******",
-    "********** *é***** / ** *é**** ******",
-    "*****è** ** **é****** / ** ****** ** *******",
-    "*****, *’é***** é***** / ***** **** ** *é*****"
+    "******é* **** ** ****s/* ** ****s*** é*******",
+    "***o** *** ** **n*/*é******* **** ***a**",
+    "***** ** *é*********/***** *e ********",
+    "É**** **********/******* *******u*",
+    "******** ***********/** ** ***** *******",
+    "********** *é*****/** *é**** ******",
+    "*****è** ** **é******/** ****** ** *******",
+    "***** * é***** é*****/***** **** ** *é*****"
 )
 
 anagrams = clean_text(
@@ -54,7 +54,7 @@ anagrams = clean_text(
     'UNS + LILAS + ACIDE + EXERCICE / ADIEU + VINGT + TERRAINS',
     'REANOBLIRONT + ANNULATION / GAGES + TAMBOUR + CAILLOU',
     'TURQUIFIEE + BITTOU / NU + PU + SOU + HALLE + BARDE',
-    'VUES + TITRE + DUDIT + PLANTE, / ABORD + FILLE + PONTE + TORTUE',
+    'VUES + TITRE + DUDIT + PLANTE / ABORD + FILLE + PONTE + TORTUE',
     'DEROQUES + RAISINS / ON + CAS + MOT + SPIRITUEL + LE',
     'AN + ODIEUX + CULTURES / URNES + LANDE + DETACHA',
     'AERE + LEUR + SETS + TROLLS / DE + BORD + GENERALISE',
