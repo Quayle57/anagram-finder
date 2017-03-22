@@ -149,6 +149,30 @@ except ImportError:
             self.print()
 
 
+class OrderingSolver:
+    """
+    sort a list of data, and alow to unapply the ordering to any other data
+
+    >>> s = OrderingSolver((3, 2, 7, 4))
+    >>> s.sort()
+    (2, 3, 4, 7)
+    >>> ''.join(s.unsort('abcd'))
+    'badc'
+
+    """
+    def __init__(self, data):
+        self.data = data
+
+    def sort(self, key=lambda i, v: v, **kwargs):
+
+        key_list = sorted(enumerate(self.data), key=lambda t: key(*t), **kwargs)
+        self.order = {i: t[0] for i, t in enumerate(key_list)}
+        return tuple(map(operator.itemgetter(1), key_list))
+
+    def unsort(self, data):
+        return tuple(data[self.order[i]] for i in range(len(data)))
+
+
 def solve(indice, anagram):
     letters = collections.Counter(anagram.replace(' ', '').replace('+', ''))
     words_list = []
@@ -161,20 +185,19 @@ def solve(indice, anagram):
     progresser = Progresser(total)
 
     # sort words_list to better perfs
-
-    key_list = sorted(enumerate(words_list), key=lambda t: len(indice.split(' ')[t[0]]), reverse=True)
-    sorted_word = list(map(operator.itemgetter(1), key_list))
+    orderer = OrderingSolver(words_list)
+    sorted_word = orderer.sort(key=lambda i, v: len(indice.split(' ')[i]), reverse=True)
     print('optimized word_list : %s' % [len(words) for words in sorted_word])
     for solution in permute_solutions(sorted_word, collections.Counter(), letters, progresser.up):
         # output solution in right order
-        yield tuple(solution[i[0]] for i in key_list)
+        yield orderer.unsort(solution)
 
 
 def main(numToDo=None):
     for i, (indice, anagram) in enumerate(zip(indices, anagrams)):
-        print("[%d]%s => %s" % (i, indice, anagram))
         if numToDo is not None and i not in numToDo:
             continue
+        print("[%d]%s => %s" % (i, indice, anagram))
         print('\n'.join(' '.join(s) for s in solve(indice, anagram)))
 
 
