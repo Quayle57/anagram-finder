@@ -27,7 +27,9 @@ indices = [
     "*s***** *f*******é*/à l* *u* d’*n *é***",
     "*n *f******** *o*/*é*é*** *a** *e ***f***",
     "*u*** *e **c** *e *c****/***è* *e *i****",
-    "*******t* *a** *e* ******s/d’*n *****é**** *é****"
+    "*******t* *a** *e* ******s/d’*n *****é**** *é****",
+    "******é* **** ** ****s / *’** ****s*** é*******",
+
 ]
 
 question = [
@@ -46,7 +48,8 @@ question = [
     'AFFRETEURS + HOSPICES / DA + AN + DU + VOLE + ME + NU',
     'ON + OUBLI + EFFRAYER / DE + FUT + RAFLE + PERSONNAGE',
     'LE + QUE + DANS + LE + SPECTACLE / AERE + PLUS + LITRE',
-    'SALLE + DEFUNT + STRESS + MONTRE / AIDE + TENTE + LUNDI + QUAND'
+    'SALLE + DEFUNT + STRESS + MONTRE / AIDE + TENTE + LUNDI + QUAND',
+    'MA + DES + SEUL + PRETENTION / AN + SUD + DENTS + INTERDIRE'
 ]
 
 data = []
@@ -109,11 +112,12 @@ def iterMatch(j, key):
         res += '%d resultat(s) pour %s avec %s: \n' % (len(r), i, regex)
         data[j]['res' + key].append(r)
         rtab = '\n'.join(r)
-        #res += rtab + '\n\n'
+        # res += rtab + '\n\n'
     return res
 
 
 compTab = []
+
 
 def retTab(resTab):
     return list(itertools.product(*resTab))

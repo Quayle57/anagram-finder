@@ -16,6 +16,7 @@ import sys
 def remove_accents(my_unicode):
     return unicodedata.normalize('NFD', my_unicode).encode('ascii', 'ignore').decode('ascii').lower()
 
+
 def clean_text(*l):
     return tuple(map(remove_accents, itertools.chain(*list(map(lambda s: s.split('/'), l)))))
 
@@ -44,7 +45,9 @@ indices = clean_text(
     "******** ***********/** ** ***** *******",
     "********** *é*****/** *é**** ******",
     "*****è** ** **é******/** ****** ** *******",
-    "***** * é***** é*****/***** **** ** *é*****"
+    "***** * é***** é*****/***** **** ** *é*****",
+    "*é******** d ** ****/********* ** ******",
+    "********* *é*******/****** ** *******"
 )
 
 anagrams = clean_text(
@@ -71,7 +74,9 @@ anagrams = clean_text(
     'ENTOURLOUPERA + EXIGUS / MUN + PNEU + MENT + MIMIS',
     'AIGREFINS + SOLENNEL / ARA + DAME + DEMONTE',
     'FORMEL + PENDRE + BECQUEE / ADOS + LUIT + PARU + ROTIR',
-    'NEE + QUE + PIPIN + ELFIQUE / AGE + LENT + REND + SANDALE'
+    'NEE + QUE + PIPIN + ELFIQUE / AGE + LENT + REND + SANDALE',
+    'OR + DUC + DUEL + INVENTEE / NI + BLONDE + RESPIRANT',
+    'RETROVERSER + BIDULES / LAC + DONA + RELAYANT'
 )
 
 
