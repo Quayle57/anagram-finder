@@ -23,31 +23,36 @@ def clean_text(*l):
 
 indices = clean_text(
     "Tyrannie du passé/future fin des temps",
-    "********é ******r/e* ***r* ********u*",
-    "*t******* **********e/********t d *n *é****",
-    "é******** **n* *e* *i***/i******** *n **s****",
-    "*a******* ************e/g********** *u *o****",
-    "*******é ******t*/****è* d *n **l* **e*",
-    "**v*** *e ****s *é*****/*e **o**** é**** *****n*",
-    "*r** **********S/*t *i***** *o** l é****",
-    "*n **a*** *******x/*a** *n* ****é*****",
-    "**s ****r* e* ******s/*******é* *e *o***",
-    "***é***** *i******/*t ***ô** ****è**",
-    "**n********* ********x/*a***** ****é* *u *i*",
-    "*s***** *f*******é*/à l* *u* d *n *é***",
-    "*n *f******** *o*/*é*é*** *a** *e ***f***",
-    "*u*** *e **c** *e *c****/***è* *e *i****",
-    "*******t* *a** *e* ******s/d *n *****é**** *é****",
-    "******é* **** ** ****s/* ** ****s*** é*******",
-    "***o** *** ** **n*/*é******* **** ***a**",
-    "***** ** *é*********/***** *e ********",
-    "É**** **********/******* *******u*",
-    "******** ***********/** ** ***** *******",
-    "********** *é*****/** *é**** ******",
-    "*****è** ** **é******/** ****** ** *******",
-    "***** * é***** é*****/***** **** ** *é*****",
+    "nervosité torpeurr/et sobre contrecoup",
+    "attention silencieuse/hurlement d un médium",
+    "éclaircie dans les cieux/irradiant un vestige",
+    "narration bouillonante/gargouilles au combat",
+    "*ubiquité fortuite/auprès d un halo bleu",
+    "Devant le puits détruits/le trouble était profond",
+    "Ires sardoniques/et mission pour l éclat",
+    "Un oracle studieux/dans une cathédrale",
+    "Les allers et retours/endiablés de Roger",
+    "Ésperance violette/et alcôve secrète",
+    "**n********* valeureux/parfois piqués au vif",
+    "Esprits effarouchés/à la vue d un démon",
+    "Un effroyable roi/pénétra dans le gouffre",
+    "Quand le pacte se scelle/après le rituel",
+    "Tourments dans les refletss/d un inquiétant dédale",
+    "******é* **** ** ****s/d un sinistre é*******",
+    "***o** *** ** **n*/décuplant tout impact",
+    "Soins et réparations/avant de repartir",
+    "Éveil miraculeux/fertile quiproquo",
+    "Rugueuse exploration/en un temps minimum",
+    "Infernales légions/** *é**** ******",
+    "Problème de fréquence/** ****** ** *******",
+    "Enfin l é***** équipe/***** **** ** *é*****",
     "*é******** d ** ****/********* ** ******",
-    "********* *é*******/****** ** *******"
+    "Terribles dévoreurs/****** ** *******",
+    "********* *é*******/****** ** *******",
+    "**** ** ******é/********** * ******",
+    "************ ******/****** à *** *******",
+    "********* * ** *******/**â** à ** *** ******",
+    "* ****** **********/****** ******* ****"
 )
 
 anagrams = clean_text(
@@ -76,7 +81,11 @@ anagrams = clean_text(
     'FORMEL + PENDRE + BECQUEE / ADOS + LUIT + PARU + ROTIR',
     'NEE + QUE + PIPIN + ELFIQUE / AGE + LENT + REND + SANDALE',
     'OR + DUC + DUEL + INVENTEE / NI + BLONDE + RESPIRANT',
-    'RETROVERSER + BIDULES / LAC + DONA + RELAYANT'
+    'RETROVERSER + BIDULES / LAC + DONA + RELAYANT',
+    'AIDES + EN + LUTTES / CAR + NATAL + SAILLANTS',
+    'MYTHONNENT + EXAUCEES / SU + ME + OUI + ATTENANTES',
+    'AXE + NUL + PIED + SANCTIONS / LA + CE + BRUN + CA + CORDAGE',
+    'BAL + LUIT + COMMETTANT / UN + PSEUDO + ADMIRABLES'
 )
 
 
